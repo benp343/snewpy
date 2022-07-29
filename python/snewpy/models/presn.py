@@ -100,10 +100,10 @@ class Patton_2017(SupernovaModel):
         super().__init__(times << u.hour, metadata)
 
     def get_initial_spectra(self, t, E, flavors=Flavor):
-        t = np.array(-t.to_value("hour"), ndmin=1)
+        t = np.array(t.to_value("hour"), ndmin=1)
         E = np.array(E.to_value("MeV"), ndmin=1)
         flux = self.interpolated(t, E) / (u.MeV * u.s)
-        return {f: flux[f].T for f in flavors}
+        return {f: flux[i][0] for i, f in enumerate(flavors)}
 
 class Kato_2017(SupernovaModel):
     """Set up a presupernova model based on 
